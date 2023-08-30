@@ -16,8 +16,8 @@ import static sample.cafekiosk.spring.domain.Product.ProductSellingType.*;
 import static sample.cafekiosk.spring.domain.Product.ProductType.*;
 
 @ActiveProfiles("test")
-@SpringBootTest //테스트 실행 시 spring 서버를 띄워서 진행
-//@DataJpaTest //Spring 서버를 띄워서 진행하는 건 같음 하지만 jpa 관련 bean 만 주입하기 때문에 더 빠름
+//@SpringBootTest //테스트 실행 시 spring 서버를 띄워서 진행
+@DataJpaTest //Spring 서버를 띄워서 진행하는 건 같음 하지만 jpa 관련 bean 만 주입하기 때문에 더 빠름 - transactional 이 달려 있어서 자동으로 rollback 이 되었다.
 class ProductRepositoryTest {
     /**
      * 단위 테스트 성격을 가지고 있긴함
