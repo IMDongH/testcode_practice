@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
+import sample.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.Product.Product;
 import sample.cafekiosk.spring.domain.Product.ProductRepository;
@@ -38,7 +39,7 @@ public class OrderService {
      * @param currentTime
      * @return
      */
-    public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime currentTime) {
+    public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime currentTime) {
         List<String> productNumbers = request.getProductNumber();
 
         List<Product> products = findProductsBy(productNumbers);
