@@ -18,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 
+
 @ExtendWith(MockitoExtension.class)//@Mock 으로 객체를 만드는 경우 꼭 달아줘야한다.
 class MailServiceTest {
 
@@ -45,9 +46,9 @@ class MailServiceTest {
         when(mailSendClient.sendEmail(any(String.class), any(String.class), any(String.class), any(String.class)))
                 .thenReturn(true);
 
-        doReturn(true) //spy 사용 시에는 위 처럼 사용이 안되어서 이렇게 사용해야한다.
-                .when(mailSendClient)
-                .sendEmail(anyString(),anyString(),anyString(),anyString());
+//        doReturn(true) //spy 사용 시에는 위 처럼 사용이 안되어서 이렇게 사용해야한다.
+//                .when(mailSendClient)
+//                .sendEmail(anyString(),anyString(),anyString(),anyString());
 
 //        when(mailSendHistoryRepository.save(any()))
 //                .thenReturn(true);

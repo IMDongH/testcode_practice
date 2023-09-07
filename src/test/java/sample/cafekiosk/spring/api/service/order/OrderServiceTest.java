@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.Product.Product;
@@ -24,10 +25,10 @@ import static org.assertj.core.api.Assertions.*;
 import static sample.cafekiosk.spring.domain.Product.ProductSellingType.*;
 import static sample.cafekiosk.spring.domain.Product.ProductType.*;
 
-@ActiveProfiles("test")
-@SpringBootTest
+//@ActiveProfiles("test")
+//@SpringBootTest
 //@Transactional
-class OrderServiceTest {
+class OrderServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderService orderService;

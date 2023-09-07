@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 import sample.cafekiosk.spring.client.mail.MailSendClient;
 import sample.cafekiosk.spring.domain.Product.Product;
 import sample.cafekiosk.spring.domain.Product.ProductRepository;
@@ -31,9 +32,8 @@ import static org.mockito.Mockito.*;
 import static sample.cafekiosk.spring.domain.Product.ProductSellingType.*;
 import static sample.cafekiosk.spring.domain.Product.ProductType.HANDMADE;
 
-@ActiveProfiles("test")
-@SpringBootTest
-class OrderStatisticsServiceTest {
+
+class OrderStatisticsServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderStatisticsService orderStatisticsService;
