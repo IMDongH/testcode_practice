@@ -12,6 +12,7 @@ import sample.cafekiosk.spring.domain.Product.ProductRepository;
 import sample.cafekiosk.spring.domain.Product.ProductType;
 import sample.cafekiosk.spring.domain.order.Order;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
+import sample.cafekiosk.spring.domain.order.OrderStatus;
 import sample.cafekiosk.spring.domain.stock.Stock;
 import sample.cafekiosk.spring.domain.stock.StockRepository;
 
@@ -49,6 +50,18 @@ public class OrderService {
         Order order = Order.create(products,currentTime);
         Order savedOrder = orderRepository.save(order);
 
+        return OrderResponse.of(savedOrder);
+    }
+
+    public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime currentTime,OrderStatus orderStatus) {
+        List<String> productNumbers = request.getProductNumber();
+
+        List<Product> products = findProductsBy(productNumbers);
+
+        deductStockQuantities(products);
+
+        Order order = Order.create(products,currentTime,orderStatus);
+        Order savedOrder = orderRepository.save(order);
 
         return OrderResponse.of(savedOrder);
     }
@@ -109,5 +122,9 @@ public class OrderService {
                 .map(product -> product.getProductNumber())
                 .collect(Collectors.toList());
         return stockProductNumbers;
+    }
+
+    public void updateOrderStatus(Order order, OrderStatus orderStatus){
+        order.updateOrderStatus(orderStatus);
     }
 }

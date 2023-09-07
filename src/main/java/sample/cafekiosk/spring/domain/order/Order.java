@@ -1,9 +1,6 @@
 package sample.cafekiosk.spring.domain.order;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import sample.cafekiosk.spring.domain.Product.Product;
 import sample.cafekiosk.spring.domain.orderProduct.OrderProduct;
 
@@ -33,8 +30,23 @@ public class Order {
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
+
+
+
     public Order(List<Product> products, LocalDateTime currentTime) {
         this.orderStatus = OrderStatus.INIT;
+        this.totalPrice = calculateTotalPrice(products);
+        this.registeredDateTime = currentTime;
+        this.orderProducts =
+                products.stream()
+                        .map(product -> new OrderProduct(this,product))
+                        .collect(Collectors.toList());
+    }
+
+
+    @Builder
+    private Order(List<Product> products, LocalDateTime currentTime,OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
         this.totalPrice = calculateTotalPrice(products);
         this.registeredDateTime = currentTime;
         this.orderProducts =
@@ -49,6 +61,26 @@ public class Order {
     }
 
     public static Order create(List<Product> products, LocalDateTime currentTime) {
-        return new Order(products,currentTime);
+        return Order.builder()
+                .products(products)
+                .orderStatus(OrderStatus.INIT)
+                .currentTime(currentTime).build();
+    }
+
+    public static Order create(List<Product> products, LocalDateTime currentTime,OrderStatus orderStatus) {
+        return new Order(products,currentTime,orderStatus);
+    }
+    public void updateOrderStatus(OrderStatus orderStatus){
+        this.orderStatus = orderStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderStatus=" + orderStatus +
+                ", totalPrice=" + totalPrice +
+                ", registeredDateTime=" + registeredDateTime +
+                '}';
     }
 }
